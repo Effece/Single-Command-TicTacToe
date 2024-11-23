@@ -35,8 +35,8 @@ in
 				| i -> (let test = String.sub grid_arg i align in test = gen_align 0 || test = gen_align 1) || detect_win_line grid_arg (i+1)
 			and detect_win_column grid_arg = function
 				| i when (i mod width >= width - 1 && i >= width * height - align - 1) -> false
-				| i when i / width > height - align -> print_string "bb"; print_int i; print_newline (); detect_win_column grid_arg (i mod width + 1)
-				| i -> print_string "aa"; print_int i; print_newline (); (let test = get_column grid_arg i in test = gen_align 0 || test = gen_align 1) || detect_win_column grid_arg (i+width)
+				| i when i / width > height - align -> detect_win_column grid_arg (i mod width + 1)
+				| i -> (let test = get_column grid_arg i in test = gen_align 0 || test = gen_align 1) || detect_win_column grid_arg (i+width)
 			and detect_win_diag grid_arg = false
 			and is_stuck grid_arg = (
 				let rec looper = function
